@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prompt Academy — PromptCraft</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+                BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+            color: #f7f8ff;
+
+            background:
+                radial-gradient(circle at 15% 15%, rgba(0, 183, 255, 0.20), transparent 28%),
+                radial-gradient(circle at 85% 20%, rgba(168, 85, 247, 0.22), transparent 30%),
+                radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.15), transparent 32%),
+                #070916;
+
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            width: min(1180px, calc(100% - 40px));
+            margin: 18px auto 0;
+
+            padding: 16px 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border: 1px solid rgba(255,255,255,0.10);
+
+            border-radius: 22px;
+
+            background: rgba(10, 13, 30, 0.72);
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.28),
+                inset 0 1px rgba(255,255,255,0.06);
+
+            position: sticky;
+            top: 14px;
+            z-index: 100;
+        }
+
+
+        .brand {
+            text-decoration: none;
+            color: white;
+
+            font-size: 1.45rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+        }
+
+        .brand span {
+            color: #48c8ff;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.72);
+            text-decoration: none;
+
+            font-size: 0.92rem;
+            font-weight: 600;
+
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .academy-page {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+
+        .hero {
+            min-height: 760px;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            position: relative;
+
+            padding: 120px 20px 90px;
+        }
+
+
+        .hero-glow {
+            position: absolute;
+
+            width: 420px;
+            height: 420px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(73, 202, 255, 0.22),
+                    rgba(168, 85, 247, 0.10),
+                    transparent 68%
+                );
+
+            filter: blur(10px);
+
+            pointer-events: none;
+        }
+
+
+        .hero-badge {
+            position: relative;
+
+            padding: 9px 17px;
+
+            border-radius: 999px;
+
+            border: 1px solid rgba(255,255,255,0.13);
+
+            background: rgba(255,255,255,0.055);
+
+            color: #9edfff;
+
+            font-size: 0.78rem;
+            font-weight: 800;
+
+            letter-spacing: 0.18em;
+
+            box-shadow:
+                0 0 35px rgba(62, 194, 255, 0.13);
+        }
+
+
+        .hero h1 {
+            position: relative;
+
+            max-width: 900px;
+
+            margin-top: 30px;
+
+            font-size: clamp(3.5rem, 8vw, 7.8rem);
+
+            line-height: 0.92;
+
+            letter-spacing: -0.075em;
+
+            font-weight: 900;
+        }
+
+
+        .hero h1 span {
+            display: block;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #62d8ff,
+                    #a78bfa,
+                    #f472b6,
+                    #62d8ff
+                );
+
+            background-size: 250% auto;
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+
+            animation: gradientMove 7s linear infinite;
+        }
+
+
+        @keyframes gradientMove {
+            to {
+                background-position: 250% center;
+            }
+        }
+
+
+        .hero-question {
+            margin-top: 30px;
+
+            font-size: clamp(1.25rem, 2.5vw, 1.8rem);
+
+            color: rgba(255,255,255,0.76);
+
+            font-weight: 500;
+        }
+
+
+        .hero-question strong {
+            color: white;
+        }
+
+
+        .hero-description {
+            max-width: 690px;
+
+            margin-top: 18px;
+
+            color: rgba(255,255,255,0.53);
+
+            font-size: 1.03rem;
+
+            line-height: 1.8;
+        }
+
+
+        .hero-button {
+            margin-top: 38px;
+
+            padding: 16px 28px;
+
+            border-radius: 999px;
+
+            color: #07101c;
+
+            text-decoration: none;
+
+            font-weight: 900;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #6ee7ff,
+                    #a78bfa,
+                    #f9a8d4
+                );
+
+            box-shadow:
+                0 0 30px rgba(99, 207, 255, 0.24),
+                0 0 70px rgba(167, 139, 250, 0.12);
+
+            transition: 0.3s ease;
+        }
+
+
+        .hero-button:hover {
+            transform: translateY(-4px) scale(1.02);
+
+            box-shadow:
+                0 0 40px rgba(99, 207, 255, 0.36),
+                0 0 90px rgba(167, 139, 250, 0.18);
+        }
+
+
+        /* =========================
+           HERO VISUAL
+        ========================= */
+
+        .visual-stage {
+            width: min(920px, 100%);
+
+            min-height: 270px;
+
+            margin-top: 70px;
+
+            padding: 45px;
+
+            border-radius: 36px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(65, 211, 255, 0.09),
+                    rgba(168, 85, 247, 0.11),
+                    rgba(236, 72, 153, 0.08)
+                ),
+                rgba(255,255,255,0.035);
+
+            backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 35px 100px rgba(0,0,0,0.35),
+                inset 0 1px rgba(255,255,255,0.07);
+        }
+
+
+        .visual-stage::before,
+        .visual-stage::after {
+            content: "";
+
+            position: absolute;
+
+            width: 190px;
+            height: 190px;
+
+            border-radius: 50%;
+
+            filter: blur(35px);
+
+            opacity: 0.45;
+        }
+
+
+        .visual-stage::before {
+            background: #31c8ff;
+            top: -90px;
+            left: -50px;
+        }
+
+
+        .visual-stage::after {
+            background: #d946ef;
+            bottom: -90px;
+            right: -40px;
+        }
+
+
+        .visual-content {
+            position: relative;
+            z-index: 2;
+        }
+
+
+        .visual-symbol {
+            font-size: 3rem;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6ee7ff,
+                    #c084fc,
+                    #f9a8d4
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        .visual-content h2 {
+            margin-top: 15px;
+
+            font-size: clamp(1.8rem, 4vw, 3rem);
+
+            letter-spacing: -0.04em;
+        }
+
+
+        .visual-content h2 span {
+            color: #6ee7ff;
+        }
+
+
+        .visual-content p {
+            margin: 14px auto 0;
+
+            max-width: 650px;
+
+            color: rgba(255,255,255,0.57);
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           JOURNEY INTRO
+        ========================= */
+
+        .section {
+            padding: 110px 0;
+        }
+
+
+        .section-heading {
+            text-align: center;
+
+            max-width: 780px;
+
+            margin: 0 auto 60px;
+        }
+
+
+        .section-heading .eyebrow {
+            color: #9edfff;
+
+            font-size: 0.75rem;
+
+            letter-spacing: 0.18em;
+
+            font-weight: 800;
+        }
+
+
+        .section-heading h2 {
+            margin-top: 14px;
+
+            font-size: clamp(2.3rem, 5vw, 4.6rem);
+
+            letter-spacing: -0.065em;
+
+            line-height: 1;
+        }
+
+
+        .section-heading h2 span {
+            background:
+                linear-gradient(
+                    100deg,
+                    #6ee7ff,
+                    #c084fc,
+                    #f9a8d4
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        .section-heading p {
+            margin-top: 20px;
+
+            color: rgba(255,255,255,0.54);
+
+            line-height: 1.8;
+        }
+
+
+        /* =========================
+           LESSON CARDS
+        ========================= */
+
+        .lesson-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 24px;
+        }
+
+
+        .lesson-card {
+            padding: 34px;
+
+            border-radius: 30px;
+
+            border: 1px solid rgba(255,255,255,0.10);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.075),
+                    rgba(255,255,255,0.025)
+                );
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,0.22),
+                inset 0 1px rgba(255,255,255,0.05);
+
+            transition: 0.3s ease;
+        }
+
+
+        .lesson-card:hover {
+            transform: translateY(-7px);
+
+            border-color: rgba(105,210,255,0.28);
+
+            box-shadow:
+                0 30px 90px rgba(0,0,0,0.30),
+                0 0 40px rgba(79,195,255,0.08);
+        }
+
+
+        .lesson-number {
+            font-size: 0.75rem;
+
+            font-weight: 900;
+
+            letter-spacing: 0.16em;
+
+            color: #8be4ff;
+        }
+
+
+        .lesson-icon {
+            font-size: 2.5rem;
+
+            margin-top: 24px;
+        }
+
+
+        .lesson-card h3 {
+            margin-top: 18px;
+
+            font-size: 1.65rem;
+
+            letter-spacing: -0.035em;
+        }
+
+
+        .lesson-card > p {
+            margin-top: 13px;
+
+            color: rgba(255,255,255,0.56);
+
+            line-height: 1.75;
+        }
+
+
+        /* =========================
+           PROMPT EXAMPLE
+        ========================= */
+
+        .prompt-showcase {
+            margin-top: 32px;
+
+            padding: 24px;
+
+            border-radius: 22px;
+
+            background: #050711;
+
+            border: 1px solid rgba(110,231,255,0.13);
+
+            box-shadow:
+                inset 0 0 50px rgba(54,190,255,0.035);
+        }
+
+
+        .prompt-label {
+            color: #72dfff;
+
+            font-size: 0.68rem;
+
+            font-weight: 900;
+
+            letter-spacing: 0.16em;
+        }
+
+
+        .prompt-text {
+            margin-top: 15px;
+
+            color: rgba(255,255,255,0.82);
+
+            line-height: 1.85;
+
+            font-size: 0.98rem;
+        }
+
+
+        .prompt-text .highlight {
+            color: #c4b5fd;
+        }
+
+
+        /* =========================
+           PROMPT ANATOMY
+        ========================= */
+
+        .anatomy {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, minmax(0, 1fr));
+
+            gap: 12px;
+
+            margin-top: 32px;
+        }
+
+
+        .anatomy-item {
+            padding: 18px 12px;
+
+            text-align: center;
+
+            border-radius: 18px;
+
+            background: rgba(255,255,255,0.045);
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            transition: 0.25s ease;
+        }
+
+
+        .anatomy-item:hover {
+            background: rgba(255,255,255,0.075);
+
+            transform: translateY(-4px);
+        }
+
+
+        .anatomy-item span {
+            display: block;
+
+            font-size: 1.5rem;
+
+            margin-bottom: 8px;
+        }
+
+
+        .anatomy-item strong {
+            font-size: 0.82rem;
+        }
+
+
+        /* =========================
+           LONG PROMPT SECTION
+        ========================= */
+
+        .deep-prompt {
+            margin-top: 70px;
+
+            padding: 44px;
+
+            border-radius: 34px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(62,205,255,0.075),
+                    rgba(168,85,247,0.075),
+                    rgba(244,114,182,0.065)
+                );
+
+            border: 1px solid rgba(255,255,255,0.11);
+
+            box-shadow:
+                0 30px 100px rgba(0,0,0,0.30);
+        }
+
+
+        .deep-prompt h3 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+
+            letter-spacing: -0.05em;
+        }
+
+
+        .deep-prompt > p {
+            margin-top: 14px;
+
+            color: rgba(255,255,255,0.55);
+
+            line-height: 1.75;
+        }
+
+
+        .long-prompt {
+            margin-top: 30px;
+
+            padding: 30px;
+
+            border-radius: 24px;
+
+            background: rgba(3,5,15,0.82);
+
+            border: 1px solid rgba(167,139,250,0.17);
+
+            color: rgba(255,255,255,0.80);
+
+            line-height: 1.9;
+
+            font-size: 1rem;
+        }
+
+
+        .long-prompt strong {
+            color: #72dfff;
+        }
+
+
+        /* =========================
+           TAKEAWAYS
+        ========================= */
+
+        .takeaways {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 18px;
+
+            margin-top: 40px;
+        }
+
+
+        .takeaway {
+            padding: 28px;
+
+            border-radius: 24px;
+
+            background: rgba(255,255,255,0.045);
+
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+
+        .takeaway-icon {
+            font-size: 1.8rem;
+        }
+
+
+        .takeaway h4 {
+            margin-top: 15px;
+
+            font-size: 1.05rem;
+        }
+
+
+        .takeaway p {
+            margin-top: 9px;
+
+            color: rgba(255,255,255,0.50);
+
+            line-height: 1.65;
+
+            font-size: 0.92rem;
+        }
+
+
+        /* =========================
+           FINALE
+        ========================= */
+
+        .finale {
+            text-align: center;
+
+            padding: 130px 20px 150px;
+
+            position: relative;
+        }
+
+
+        .finale-symbol {
+            font-size: 3rem;
+
+            color: #7dd3fc;
+        }
+
+
+        .finale h2 {
+            margin-top: 20px;
+
+            font-size: clamp(2.7rem, 6vw, 5.8rem);
+
+            line-height: 0.98;
+
+            letter-spacing: -0.07em;
+        }
+
+
+        .finale h2 span {
+            display: block;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #6ee7ff,
+                    #c084fc,
+                    #f9a8d4
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        .finale p {
+            max-width: 600px;
+
+            margin: 22px auto 0;
+
+            color: rgba(255,255,255,0.52);
+
+            line-height: 1.8;
+        }
+
+
+        .finale-button {
+            display: inline-block;
+
+            margin-top: 34px;
+
+            padding: 16px 27px;
+
+            border-radius: 999px;
+
+            text-decoration: none;
+
+            font-weight: 900;
+
+            color: #07101c;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #6ee7ff,
+                    #c084fc,
+                    #f9a8d4
+                );
+
+            box-shadow:
+                0 0 40px rgba(110,231,255,0.18);
+
+            transition: 0.3s ease;
+        }
+
+
+        .finale-button:hover {
+            transform: translateY(-4px);
+        }
+
+
+        footer {
+            padding: 30px 20px;
+
+            text-align: center;
+
+            color: rgba(255,255,255,0.35);
+
+            font-size: 0.82rem;
+
+            border-top: 1px solid rgba(255,255,255,0.07);
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+                gap: 13px;
+            }
+
+            .nav-links a {
+                font-size: 0.76rem;
+            }
+
+            .lesson-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .anatomy {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            .takeaways {
+                grid-template-columns: 1fr;
+            }
+
+            .visual-stage {
+                padding: 30px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            nav {
+                width: calc(100% - 22px);
+                padding: 14px 16px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .academy-page {
+                width: calc(100% - 22px);
+            }
+
+            .hero {
+                min-height: 680px;
+                padding-top: 90px;
+            }
+
+            .hero h1 {
+                font-size: clamp(3.2rem, 16vw, 5rem);
+            }
+
+            .lesson-card,
+            .deep-prompt {
+                padding: 24px;
+            }
+
+            .long-prompt {
+                padding: 21px;
+                font-size: 0.91rem;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <nav>
+
+        <a href="index.html" class="brand">
+            Prompt<span>Craft</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="index.html#categories">Explore</a>
+
+            <a href="index.html#generator">Generate</a>
+
+            <a href="prompt-academy.html">
+                Prompt Academy
+            </a>
+
+            <a href="index.html#tools">
+                Tools
+            </a>
+
+            <a href="index.html#gallery">
+                Gallery
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="academy-page">
+
+
+        <!-- =========================
+             HERO
+        ========================== -->
+
+        <section class="hero">
+
+            <div class="hero-glow"></div>
+
+            <div class="hero-badge">
+                ✦ PROMPT ACADEMY
+            </div>
+
+
+            <h1>
+                Can't make
+                <span>better prompts?</span>
+            </h1>
+
+
+            <p class="hero-question">
+                Don't worry.
+                <strong>Let's learn prompting together.</strong> 🚀
+            </p>
+
+
+            <p class="hero-description">
+                Your idea already has potential.
+                Now let's learn how to give it direction,
+                detail, personality, and creative control —
+                one powerful concept at a time.
+            </p>
+
+
+            <a href="#lesson-01" class="hero-button">
+                LET'S BEGIN →
+            </a>
+
+
+            <div class="visual-stage">
+
+                <div class="visual-content">
+
+                    <div class="visual-symbol">
+                        ✦
+                    </div>
+
+                    <h2>
+                        Your idea is the
+                        <span>beginning.</span>
+                    </h2>
+
+                    <p>
+                        Precision gives it direction.
+                        Creativity gives it life.
+                        Prompting brings it to AI.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             JOURNEY
+        ========================== -->
+
+        <section class="section" id="lesson-01">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">
+                    THE FIRST STEP
+                </span>
+
+                <h2>
+                    So, what exactly
+                    <span>is a prompt?</span>
+                </h2>
+
+                <p>
+                    Before creating sophisticated prompts,
+                    let's understand the simple idea behind them.
+                    A prompt is simply how you communicate your
+                    intention to an AI system.
+                </p>
+
+            </div>
+
+
+            <div class="lesson-grid">
+
+
+                <article class="lesson-card">
+
+                    <span class="lesson-number">
+                        01 / UNDERSTAND
+                    </span>
+
+                    <div class="lesson-icon">
+                        💭
+                    </div>
+
+                    <h3>
+                        An idea is not yet a direction.
+                    </h3>
+
+                    <p>
+                        Saying what you want is only the beginning.
+                        A strong prompt starts giving the AI useful
+                        information about what you want to see,
+                        how it should appear, and what kind of
+                        feeling the result should communicate.
+                    </p>
+
+
+                    <div class="prompt-showcase">
+
+                        <span class="prompt-label">
+                            SIMPLE IDEA
+                        </span>
+
+                        <p class="prompt-text">
+                            A beautiful forest.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="lesson-card">
+
+                    <span class="lesson-number">
+                        02 / DIRECT
+                    </span>
+
+                    <div class="lesson-icon">
+                        🎯
+                    </div>
+
+                    <h3>
+                        Give your idea direction.
+                    </h3>
+
+                    <p>
+                        Now we can introduce useful information:
+                        environment, perspective, lighting,
+                        atmosphere, composition, and visual character.
+                    </p>
+
+
+                    <div class="prompt-showcase">
+
+                        <span class="prompt-label">
+                            MORE DIRECTED
+                        </span>
+
+                        <p class="prompt-text">
+
+                            A dense forest during golden hour,
+                            viewed from a slightly elevated perspective,
+                            with soft sunlight filtering through layered
+                            foliage, natural depth between the trees,
+                            subtle atmospheric mist, and a calm,
+                            immersive cinematic feeling.
+
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <div class="deep-prompt">
+
+                <h3>
+                    See what changed? 👀
+                </h3>
+
+                <p>
+                    The subject stayed the same.
+                    What changed was the amount of direction
+                    we gave the AI.
+                </p>
+
+
+                <div class="long-prompt">
+
+                    <strong>THE IDEA:</strong>
+
+                    A forest.
+
+                    <br><br>
+
+                    <strong>THE DIRECTION:</strong>
+
+                    A dense natural forest during warm golden hour,
+                    photographed from a slightly elevated viewpoint,
+                    with layered trees creating strong depth and
+                    natural leading lines. Soft sunlight filters
+                    through the canopy in delicate volumetric rays,
+                    illuminating textured leaves, moss-covered ground,
+                    and subtle atmospheric mist. The composition feels
+                    immersive and balanced, with a calm yet visually
+                    rich environment. Use natural earthy tones,
+                    realistic textures, cinematic depth, gentle
+                    contrast, and authentic environmental detail.
+                    The overall image should feel peaceful,
+                    believable, spacious, and visually captivating,
+                    while maintaining the untouched character of
+                    a real forest.
+                    
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             ANATOMY
+        ========================== -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">
+                    THE ANATOMY
+                </span>
+
+                <h2>
+                    Give your prompt
+                    <span>the right ingredients.</span>
+                </h2>
+
+                <p>
+                    You don't need complicated vocabulary.
+                    You need useful information that gives the
+                    AI more control over your intended result.
+                </p>
+
+            </div>
+
+
+            <div class="anatomy">
+
+                <div class="anatomy-item">
+                    <span>🎯</span>
+                    <strong>Subject</strong>
+                </div>
+
+                <div class="anatomy-item">
+                    <span>📐</span>
+                    <strong>Composition</strong>
+                </div>
+
+                <div class="anatomy-item">
+                    <span>📷</span>
+                    <strong>Camera</strong>
+                </div>
+
+                <div class="anatomy-item">
+                    <span>💡</span>
+                    <strong>Lighting</strong>
+                </div>
+
+                <div class="anatomy-item">
+                    <span>🌫️</span>
+                    <strong>Atmosphere</strong>
+                </div>
+
+            </div>
+
+
+            <div class="anatomy" style="margin-top: 14px;">
+
+                <div class="anatomy-item">
+                    <span>🎨</span>
+                    <strong>Color</strong>
+                </div>
+
+                <div class="anatomy-item">
+                    <span>🏞️</span>
+                    <strong>Environment</strong>
+                </div>
+
+                <div class="anatomy-item">
+                    <span>✨</span>
+                    <strong>Style</strong>
+                </div>
+
+                <div class="anatomy-item">
+                    <span>🔍</span>
+                    <strong>Detail</strong>
+                </div>
+
+                <div class="anatomy-item">
+                    <span>🧠</span>
+                    <strong>Intent</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             TAKEAWAYS
+        ========================== -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">
+                    REMEMBER THIS
+                </span>
+
+                <h2>
+                    Better prompts are about
+                    <span>better communication.</span>
+                </h2>
+
+            </div>
+
+
+            <div class="takeaways">
+
+                <div class="takeaway">
+
+                    <div class="takeaway-icon">
+                        🎯
+                    </div>
+
+                    <h4>
+                        Be intentional.
+                    </h4>
+
+                    <p>
+                        Decide what matters most in your result
+                        before adding unnecessary details.
+                    </p>
+
+                </div>
+
+
+                <div class="takeaway">
+
+                    <div class="takeaway-icon">
+                        💡
+                    </div>
+
+                    <h4>
+                        Be descriptive.
+                    </h4>
+
+                    <p>
+                        Useful visual information gives the AI
+                        more direction and creative control.
+                    </p>
+
+                </div>
+
+
+                <div class="takeaway">
+
+                    <div class="takeaway-icon">
+                        ✨
+                    </div>
+
+                    <h4>
+                        Be creative.
+                    </h4>
+
+                    <p>
+                        Technical structure gives direction,
+                        but your imagination gives the prompt
+                        its personality.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             FINALE
+        ========================== -->
+
+        <section class="finale">
+
+            <div class="finale-symbol">
+                ✦
+            </div>
+
+            <h2>
+                Your imagination.
+                <span>Better communicated.</span>
+            </h2>
+
+            <p>
+                Keep learning. Keep experimenting.
+                And when you're ready, take what you've learned
+                and turn your next idea into a powerful prompt.
+            </p>
+
+            <a
+                href="index.html#generator"
+                class="finale-button"
+            >
+                TRY IT YOURSELF →
+            </a>
+
+        </section>
+
+
+    </main>
+
+
+    <footer>
+        © 2026 PromptCraft · Prompt Academy
+    </footer>
+
+
+</body>
+</html>
